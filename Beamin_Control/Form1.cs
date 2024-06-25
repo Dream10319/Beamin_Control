@@ -399,14 +399,23 @@ namespace Beamin_Control
                         });
                         var response = client.ExecutePostAsync(request);
                         var data = JObject.Parse(response.Result.Content);
-                        Properties.Settings.Default.Owner_No = data["data"]["merchantNo"].ToString();
-                        Properties.Settings.Default.Save();
+                        if (data["rspCode"].ToString() == "301")
+                        {
+                            Properties.Settings.Default.Owner_No = data["data"]["merchantNo"].ToString();
+                            Properties.Settings.Default.Save();
 
-                        request = new RestRequest($"v3/device/{Properties.Settings.Default.Owner_No}");
-                        response = client.ExecuteGetAsync(request);
-                        data = JObject.Parse(response.Result.Content);
-                        Properties.Settings.Default.deviceToken = data["data"][0]["token"].ToString();
-                        Properties.Settings.Default.Save();
+                            request = new RestRequest($"v3/device/{Properties.Settings.Default.Owner_No}");
+                            response = client.ExecuteGetAsync(request);
+                            data = JObject.Parse(response.Result.Content);
+                            Properties.Settings.Default.deviceToken = data["data"][0]["token"].ToString();
+                            Properties.Settings.Default.Save();
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.Owner_No = data["data"]["Owner_No"].ToString();
+                            Properties.Settings.Default.deviceToken = data["data"]["deviceToken"].ToString();
+                            Properties.Settings.Default.Save();
+                        }
 
                         List<Tuple<string, string>> Special_Login_Headers_1 = new List<Tuple<string, string>>();
 
@@ -728,6 +737,13 @@ namespace Beamin_Control
 
                                 Login_Btn.Text = Program.Language.De[400]; // Login
                                 Special_Headers.Clear();
+                                timer1.Enabled = false;
+                                Order_Checker_lable.Text = "...";
+                                Order_Details.Controls.Clear();
+                                Completed_Orders_Details.Controls.Clear();
+                                New_Orders.Controls.Clear();
+                                In_Progress_Orders.Controls.Clear();
+                                Completed_Orders.Controls.Clear();
 
                             }));
                         }
