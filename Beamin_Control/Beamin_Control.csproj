@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.120.2.5\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.120.2.5\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.120.2.5\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.120.2.5\build\cef.redist.x64.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B238E28-E86E-43A2-A845-4C6E31414E96}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Beamin_Control</RootNamespace>
+    <AssemblyName>Beamin_Control</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;Release</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>project_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test With Proxy|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test With Proxy\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Test_With_Proxy</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Design Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Design Test\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Design_Test</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CefSharp, Version=120.2.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>..\packages\CefSharp.Common.120.2.50\lib\net462\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Core, Version=120.2.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>..\packages\CefSharp.Common.120.2.50\lib\net462\CefSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.WinForms, Version=120.2.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>..\packages\CefSharp.WinForms.120.2.50\lib\net462\CefSharp.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=106.15.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.15.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App Login\Delete_Devices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App Login\Delete_Devices.Designer.cs">
+      <DependentUpon>Delete_Devices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="App Login\Hardware_Info_Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App Login\Hardware_Info_Frm.Designer.cs">
+      <DependentUpon>Hardware_Info_Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Computer_Info_Helper.cs" />
+    <Compile Include="Controls\Cancel_By_Menu_CheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CircularProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Order_Button.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Order_Details.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Order_Details.Designer.cs">
+      <DependentUpon>Order_Details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Order_Details_Panel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Order_Details_Panel.Designer.cs">
+      <DependentUpon>Order_Details_Panel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\O_modifier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\O_modifier.Designer.cs">
+      <DependentUpon>O_modifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Rider_Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Rider_Control.Designer.cs">
+      <DependentUpon>Rider_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Rider_ProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="JSON Response\Availabilities_Response.cs" />
+    <Compile Include="Language_Class.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper_Class.cs" />
+    <Compile Include="JSON Response\Orders_Check.cs" />
+    <Compile Include="App Login\Login_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App Login\Login_frm.Designer.cs">
+      <DependentUpon>Login_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="App Login\Mobile_Authorization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App Login\Mobile_Authorization.Designer.cs">
+      <DependentUpon>Mobile_Authorization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Class\Availabilitie_Control.cs" />
+    <Compile Include="Main Class\Orders_Control.cs" />
+    <Compile Include="Order_Notification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Order_Notification.Designer.cs">
+      <DependentUpon>Order_Notification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="REJECT_REASON_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="REJECT_REASON_frm.Designer.cs">
+      <DependentUpon>REJECT_REASON_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Restaurant_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Restaurant_Item.Designer.cs">
+      <DependentUpon>Restaurant_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Boss_Notice\Boss_Notice_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Boss_Notice\Boss_Notice_Item.Designer.cs">
+      <DependentUpon>Boss_Notice_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Boss_Notice\Boss_Notice_Response.cs" />
+    <Compile Include="WebSite\Boss_Notice\New_Boss_Notice_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Boss_Notice\New_Boss_Notice_frm.Designer.cs">
+      <DependentUpon>New_Boss_Notice_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Cookies_Class.cs" />
+    <Compile Include="WebSite\Menu Management\Change_Menu_Name_Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Change_Menu_Name_Frm.Designer.cs">
+      <DependentUpon>Change_Menu_Name_Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Edit_Menu_Item.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Edit_Menu_Item.Designer.cs">
+      <DependentUpon>Edit_Menu_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Menu_Item_Edit_Response.cs" />
+    <Compile Include="WebSite\Menu Management\Menu_Item_Edit_Response_02.cs" />
+    <Compile Include="WebSite\Menu Management\optionGroups_Edit_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\optionGroups_Edit_Item.Designer.cs">
+      <DependentUpon>optionGroups_Edit_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Price_Change_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Price_Change_frm.Designer.cs">
+      <DependentUpon>Price_Change_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\break_time_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\break_time_frm.Designer.cs">
+      <DependentUpon>break_time_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\closeDayText_Update_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\closeDayText_Update_frm.Designer.cs">
+      <DependentUpon>closeDayText_Update_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Holiday_Update_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Holiday_Update_frm.Designer.cs">
+      <DependentUpon>Holiday_Update_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Json_Class.cs" />
+    <Compile Include="WebSite\Operation Information\Operation_Hours.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Hours.Designer.cs">
+      <DependentUpon>Operation_Hours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Hours_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Hours_frm.Designer.cs">
+      <DependentUpon>Operation_Hours_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Item.Designer.cs">
+      <DependentUpon>Operation_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Value.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Operation_Value.Designer.cs">
+      <DependentUpon>Operation_Value.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\regular_holiday_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\regular_holiday_Item.Designer.cs">
+      <DependentUpon>regular_holiday_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Temporary_Leave_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Operation Information\Temporary_Leave_Item.Designer.cs">
+      <DependentUpon>Temporary_Leave_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Order History\Filters_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Order History\Filters_frm.Designer.cs">
+      <DependentUpon>Filters_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Order History\Filter_Item.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebSite\Order History\History_Period_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Order History\History_Period_frm.Designer.cs">
+      <DependentUpon>History_Period_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Order History\Order_History_Json.cs" />
+    <Compile Include="WebSite\Order History\Round_Button.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebSite\Other Response\Profile_Response.cs" />
+    <Compile Include="WebSite\Other Response\Shop_Response.cs" />
+    <Compile Include="WebSite\Menu Management\Group_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Group_Item.Designer.cs">
+      <DependentUpon>Group_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Menu_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Menu_Item.Designer.cs">
+      <DependentUpon>Menu_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\OptionGroup_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\OptionGroup_Item.Designer.cs">
+      <DependentUpon>OptionGroup_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Sold_Out_Date_Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Sold_Out_Date_Frm.Designer.cs">
+      <DependentUpon>Sold_Out_Date_Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Menu Management\Sold_Out_Response.cs" />
+    <Compile Include="WebSite\Recaptcha_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Recaptcha_frm.Designer.cs">
+      <DependentUpon>Recaptcha_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Comment_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Comment_Item.Designer.cs">
+      <DependentUpon>Comment_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Reviews\New_Boss_Comment_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Reviews\New_Boss_Comment_frm.Designer.cs">
+      <DependentUpon>New_Boss_Comment_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Reviews_Response.cs" />
+    <Compile Include="WebSite\Reviews\Review_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Review_Item.Designer.cs">
+      <DependentUpon>Review_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Review_Item_Container.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSite\Reviews\Review_Item_Container.Designer.cs">
+      <DependentUpon>Review_Item_Container.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Store_Management.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Store_Management.Designer.cs">
+      <DependentUpon>Store_Management.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSite\Web_Helper.cs" />
+    <Compile Include="WebSite\Web_Login_Helper.cs" />
+    <Compile Include="WebSite\Web_Main_frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebSite\Web_Main_frm.Designer.cs">
+      <DependentUpon>Web_Main_frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="X-Api-Secret_Helper.cs" />
+    <EmbeddedResource Include="App Login\Delete_Devices.resx">
+      <DependentUpon>Delete_Devices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App Login\Hardware_Info_Frm.resx">
+      <DependentUpon>Hardware_Info_Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Order_Details.resx">
+      <DependentUpon>Order_Details.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Order_Details_Panel.resx">
+      <DependentUpon>Order_Details_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\O_modifier.resx">
+      <DependentUpon>O_modifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Rider_Control.resx">
+      <DependentUpon>Rider_Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App Login\Login_frm.resx">
+      <DependentUpon>Login_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App Login\Mobile_Authorization.resx">
+      <DependentUpon>Mobile_Authorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order_Notification.resx">
+      <DependentUpon>Order_Notification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Controls\Restaurant_Item.resx">
+      <DependentUpon>Restaurant_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REJECT_REASON_frm.resx">
+      <DependentUpon>REJECT_REASON_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Boss_Notice\Boss_Notice_Item.resx">
+      <DependentUpon>Boss_Notice_Item.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Boss_Notice\New_Boss_Notice_frm.resx">
+      <DependentUpon>New_Boss_Notice_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Change_Menu_Name_Frm.resx">
+      <DependentUpon>Change_Menu_Name_Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Edit_Menu_Item.resx">
+      <DependentUpon>Edit_Menu_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\optionGroups_Edit_Item.resx">
+      <DependentUpon>optionGroups_Edit_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Price_Change_frm.resx">
+      <DependentUpon>Price_Change_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\break_time_frm.resx">
+      <DependentUpon>break_time_frm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\closeDayText_Update_frm.resx">
+      <DependentUpon>closeDayText_Update_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Holiday_Update_frm.resx">
+      <DependentUpon>Holiday_Update_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Operation_Hours.resx">
+      <DependentUpon>Operation_Hours.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Operation_Hours_frm.resx">
+      <DependentUpon>Operation_Hours_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Operation_Item.resx">
+      <DependentUpon>Operation_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Operation_Value.resx">
+      <DependentUpon>Operation_Value.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\regular_holiday_Item.resx">
+      <DependentUpon>regular_holiday_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Operation Information\Temporary_Leave_Item.resx">
+      <DependentUpon>Temporary_Leave_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Order History\Filters_frm.resx">
+      <DependentUpon>Filters_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Order History\History_Period_frm.resx">
+      <DependentUpon>History_Period_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Group_Item.resx">
+      <DependentUpon>Group_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Menu_Item.resx">
+      <DependentUpon>Menu_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\OptionGroup_Item.resx">
+      <DependentUpon>OptionGroup_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Menu Management\Sold_Out_Date_Frm.resx">
+      <DependentUpon>Sold_Out_Date_Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Recaptcha_frm.resx">
+      <DependentUpon>Recaptcha_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Reviews\Comment_Item.resx">
+      <DependentUpon>Comment_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Reviews\New_Boss_Comment_frm.resx">
+      <DependentUpon>New_Boss_Comment_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Reviews\Review_Item.resx">
+      <DependentUpon>Review_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Reviews\Review_Item_Container.resx">
+      <DependentUpon>Review_Item_Container.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Store_Management.resx">
+      <DependentUpon>Store_Management.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSite\Web_Main_frm.resx">
+      <DependentUpon>Web_Main_frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="project_icon.ico" />
+    <None Include="Resources\Busy.png" />
+    <None Include="Resources\Disabled.png" />
+    <None Include="Resources\Closed.png" />
+    <None Include="Resources\Open.png" />
+    <None Include="Resources\login-icon-3060.png" />
+    <None Include="Resources\delete-button %281%29.png" />
+    <None Include="Resources\order %281%29.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.120.2.5\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.120.2.5\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.120.2.5\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.120.2.5\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.120.2.50\build\CefSharp.Common.targets')" />
+</Project>
