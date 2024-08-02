@@ -47,5 +47,14 @@
     <Setting Name="Default_Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">Korean</Value>
     </Setting>
+    <Setting Name="AuthToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="User" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Pass" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -247,14 +247,11 @@ namespace Beamin_Control
             Special_Headers.Add(new Tuple<string, string>("X-Api-Secret", ""));
         }
 
-
-
-
         private bool Check_For_New_Version()
         {
             JObject request_payload = new JObject();
             request_payload.Add("_t", "TUpdateTargetDeviceReq");
-            request_payload.Add("currentVersion", string.IsNullOrEmpty(Properties.Settings.Default.CurrentVersion) ? "0.8.1680.0" : Properties.Settings.Default.CurrentVersion);
+            request_payload.Add("currentVersion", string.IsNullOrEmpty(Properties.Settings.Default.CurrentVersion) ? "0.8.2670.0" : Properties.Settings.Default.CurrentVersion);
             request_payload.Add("ReqContentType", 5);
 
             Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request("https://advance-relay.baemin.com/v5/patch-files/verifications/target-device", Method.POST, null, request_payload.ToString()));
@@ -271,7 +268,7 @@ namespace Beamin_Control
                         string new_Version = o["data"]["version"].ToString();
                         if (new_Version.Contains("."))
                         {
-                            Properties.Settings.Default.CurrentVersion = new_Version.Substring(0, new_Version.LastIndexOf(".")).ToString() + ".0";
+                            Properties.Settings.Default.CurrentVersion = "0.8.2670.0";
                             Properties.Settings.Default.Save();
                         }
 
@@ -367,7 +364,9 @@ namespace Beamin_Control
                         return;
                     }
 #endif
-
+                    Properties.Settings.Default.User = frm.username.Text;
+                    Properties.Settings.Default.Pass = frm.password.Text;
+                    Properties.Settings.Default.Save();
                     frm.button1.Enabled = false;
                     Thread th = new Thread(new ParameterizedThreadStart((object f) =>
                     {
@@ -395,7 +394,7 @@ namespace Beamin_Control
                             pwd = frm.password.Text,
                             typ = "in",
                             uid = frm.username.Text,
-                            version = "0.8.2581.0"
+                            version = "0.8.2670.0"
                         });
                         var response = client.ExecutePostAsync(request);
                         var data = JObject.Parse(response.Result.Content);
@@ -482,6 +481,8 @@ namespace Beamin_Control
 
                                 if (o["data"].HasValues == true)
                                 {
+                                    Properties.Settings.Default.AuthToken = o["data"]["authToken"].ToString();
+                                    Properties.Settings.Default.Save();
                                     if (o["data"]["deviceToken"] != null)
                                     {
 

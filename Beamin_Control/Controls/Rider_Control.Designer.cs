@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Rider_Location_lb = new System.Windows.Forms.Label();
             this.Minutes_Until_Rider_Pickup_lb = new System.Windows.Forms.Label();
+            this.OrderNo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -89,6 +90,16 @@
             this.Minutes_Until_Rider_Pickup_lb.Text = "...";
             this.Minutes_Until_Rider_Pickup_lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Minutes_Until_Rider_Pickup_lb.UseCompatibleTextRendering = true;
+            this.Minutes_Until_Rider_Pickup_lb.Visible = false;
+            // 
+            // OrderNo
+            // 
+            this.OrderNo.AutoSize = true;
+            this.OrderNo.Location = new System.Drawing.Point(529, 9);
+            this.OrderNo.Name = "OrderNo";
+            this.OrderNo.Size = new System.Drawing.Size(73, 18);
+            this.OrderNo.TabIndex = 5;
+            this.OrderNo.Text = "OrderNo";
             // 
             // Rider_Control
             // 
@@ -96,6 +107,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.OrderNo);
             this.Controls.Add(this.Minutes_Until_Rider_Pickup_lb);
             this.Controls.Add(this.Rider_Location_lb);
             this.Controls.Add(this.label1);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.Label Rider_Location_lb;
         private System.Windows.Forms.Label Minutes_Until_Rider_Pickup_lb;
         internal Rider_ProgressBar rider_ProgressBar2;
+        public System.Windows.Forms.Label OrderNo;
     }
 }

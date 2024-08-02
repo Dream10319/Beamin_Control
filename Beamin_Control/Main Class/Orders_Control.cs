@@ -711,11 +711,11 @@ namespace Beamin_Control.Main_Class
                         };
 
 
-
+                        Rider_Status.OrderNo.Text = o.orderNo.ToString();
                         if (o.riderInfo != null)
                         {
 
-                            if (o.riderInfo.riderAssignTime != null)
+                            if (!string.IsNullOrEmpty(o.riderInfo.riderAssignTime))
                             {
 
                                 Rider_Status.rider_ProgressBar2.Rider_Assignment_Time = DateTime.ParseExact(o.riderInfo.riderAssignTime, "yyyy-MM-ddTHH:mmZ",
@@ -723,28 +723,28 @@ namespace Beamin_Control.Main_Class
                             }
 
 
-                            if (o.riderInfo.pickupExecuteTime != null)
+                            if (!string.IsNullOrEmpty(o.riderInfo.estimatedPickupExecuteTime))
                             {
-                                Rider_Status.rider_ProgressBar2.Pickup_Complete_Time = DateTime.ParseExact(o.riderInfo.pickupExecuteTime, "yyyy-MM-dd HH:mm:ss",
+                                Rider_Status.rider_ProgressBar2.Pickup_Complete_Time = DateTime.ParseExact(o.riderInfo.estimatedPickupExecuteTime, "yyyy-MM-dd HH:mm:ss",
                                     System.Globalization.CultureInfo.CurrentCulture).ToString("HH:mm");
 
                             }
                         }
 
-                        if (o.riderStatus == "RIDER_ASSIGNED" || Order_S.riderStatus == "RIDER_ASSIGNED")
+                        if (o.riderStatus == "RIDER_ASSIGNED")
                         {
                             Rider_Status.rider_ProgressBar2.Value = 10;
 
                         }
 
 
-                        if (o.riderStatus == "PICKUP_COMPLETED" || Order_S.riderStatus == "PICKUP_COMPLETED")
+                        if (o.riderStatus == "PICKUP_COMPLETED")
                         {
                             Rider_Status.rider_ProgressBar2.Value = 55;
 
                         }
 
-                        if (o.riderStatus == "ARRIVED_SHOP" || Order_S.riderStatus == "ARRIVED_SHOP")
+                        if (o.riderStatus == "ARRIVED_SHOP")
                         {
                             Rider_Status.rider_ProgressBar2.Value = 100;
 
@@ -754,68 +754,72 @@ namespace Beamin_Control.Main_Class
 
 
 
-
-                        if (Order_S.riderStatus == null)
+                        if(Order_S != null)
                         {
-                            new_order.Cancel_Order.Click += (ss, ee) =>
+                            if (Order_S.riderStatus == null)
                             {
-                                Show_REJECT_Resons(ss, ee, o.orderNo, o.shopInfo.shopNo, o.siteCode, o.serviceType, o.deliveryType, "WAIT_ALLOCATE", o.foods);
-                            };
-                            new_order.Accept_Order.Visible = false;
-                        }
-                        else if (Order_S.riderStatus == "RIDER_ASSIGNED")
-                        {
-                            new_order.Cancel_Order.Click += (ss, ee) =>
-                            {
-                                Show_REJECT_Resons(ss, ee, o.orderNo, o.shopInfo.shopNo, o.siteCode, o.serviceType, o.deliveryType, "RIDER_ASSIGNED", o.foods);
-                            };
-                            new_order.Accept_Order.Visible = false;
-
-                        }
-                        else if (Order_S.riderStatus == "ARRIVED_SHOP")
-
-                        {
-                            new_order.Cancel_Order.Visible = false;
-                            new_order.Accept_Order.Visible = false;
-                        }
-
-                        else{
-                            new_order.Cancel_Order.Visible = false;
-                            new_order.Accept_Order.Text = Program.Language.De[1124];//"Cookie Complete";
-                            new_order.Accept_Order.Click += (ss, ee) =>
-                            {
-                                if (MessageBox.Show(Program.Language.De[1003], Program.Language.De[1124]
-                                    , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                new_order.Cancel_Order.Click += (ss, ee) =>
                                 {
-                                    //Order_Set_Action_Click(ss, ee, o.orderNo, " ", "2", o.shopInfo.shopNo.ToString());
-                                    //Order_Complete_btn(ss, ee, o.orderNo);
+                                    Show_REJECT_Resons(ss, ee, o.orderNo, o.shopInfo.shopNo, o.siteCode, o.serviceType, o.deliveryType, "WAIT_ALLOCATE", o.foods);
+                                };
+                                new_order.Accept_Order.Visible = false;
+                            }
+                            else if (Order_S.riderStatus == "RIDER_ASSIGNED")
+                            {
+                                new_order.Cancel_Order.Click += (ss, ee) =>
+                                {
+                                    Show_REJECT_Resons(ss, ee, o.orderNo, o.shopInfo.shopNo, o.siteCode, o.serviceType, o.deliveryType, "RIDER_ASSIGNED", o.foods);
+                                };
+                                new_order.Accept_Order.Visible = false;
 
-                                    Thread th = new Thread(new ThreadStart(() =>
+                            }
+                            else if (Order_S.riderStatus == "ARRIVED_SHOP")
+
+                            {
+                                new_order.Cancel_Order.Visible = false;
+                                new_order.Accept_Order.Visible = false;
+                            }
+
+                            else
+                            {
+                                new_order.Cancel_Order.Visible = false;
+                                new_order.Accept_Order.Text = Program.Language.De[1124];//"Cookie Complete";
+                                new_order.Accept_Order.Click += (ss, ee) =>
+                                {
+                                    if (MessageBox.Show(Program.Language.De[1003], Program.Language.De[1124]
+                                        , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                     {
+                                        //Order_Set_Action_Click(ss, ee, o.orderNo, " ", "2", o.shopInfo.shopNo.ToString());
+                                        //Order_Complete_btn(ss, ee, o.orderNo);
 
-
-                                        Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request($"https://advance-relay.baemin.com/v7/orders/{o.orderNo}/cook-complete", Method.POST, null, null, Main_Frm.Special_Headers));
-                                        tx.Wait();
-
-                                        if (!string.IsNullOrEmpty(tx.Result.Content))
+                                        Thread th = new Thread(new ThreadStart(() =>
                                         {
-                                            JToken response = Helper_Class.Json_Response(tx.Result.Content.ToString());
 
-                                            if (response["rspCode"].ToString() == "200")
+
+                                            Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request($"https://advance-relay.baemin.com/v7/orders/{o.orderNo}/cook-complete", Method.POST, null, null, Main_Frm.Special_Headers));
+                                            tx.Wait();
+
+                                            if (!string.IsNullOrEmpty(tx.Result.Content))
                                             {
-                                                Main_Frm.Invoke(new Action(() =>
+                                                JToken response = Helper_Class.Json_Response(tx.Result.Content.ToString());
+
+                                                if (response["rspCode"].ToString() == "200")
                                                 {
-                                                    MessageBox.Show("Cookie Complete");
-                                                }));
+                                                    Main_Frm.Invoke(new Action(() =>
+                                                    {
+                                                        MessageBox.Show("Cookie Complete");
+                                                    }));
 
+                                                }
                                             }
-                                        }
-                                    }));
+                                        }));
 
-                                    th.Start();
-                                }
-                            };
+                                        th.Start();
+                                    }
+                                };
+                            }
                         }
+                        
 
 
                     }

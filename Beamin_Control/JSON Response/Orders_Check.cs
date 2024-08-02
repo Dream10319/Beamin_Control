@@ -269,7 +269,7 @@ namespace Beamin_Control.JSON_Response
         public object riderName { get; set; }
         public object riderPhoneNo { get; set; }
         public string riderAssignTime { get; set; }
-        public object cookRequestedTime { get; set; }
+        public string cookRequestedTime { get; set; }
         public string  pickupExecuteTime { get; set; }
         public string estimatedPickupExecuteTime { get; set; }
         public string deliveryFee { get; set; }
