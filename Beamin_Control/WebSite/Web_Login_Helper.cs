@@ -160,8 +160,6 @@ namespace Beamin_Control.WebSite
 
 
                     }
-
-
                     //MessageBox.Show("Returned");
 
                     //Task<IRestResponse> tx2 = Task.Run(() => Web_Helper.Send_Request($"https://ceo.baemin.com/login/authentication?__ts={New_Time()}", Method.POST, null, JsonConvert.SerializeObject(L), ss));
